@@ -17,7 +17,7 @@ public class Controller {
     @FXML
     private Button polyABtn;
 
-    private final static double ENGLISH_IC = 0.067;
+    private final static double ENGLISH_IC = 0.0667;
     private final static double MAX_KEY_LENGTH = 10;
     private static HashMap<Character,Integer> numLetter=new HashMap<Character, Integer>();
     private static HashMap<Character,Double> englishFreq=new HashMap<Character, Double>();
@@ -43,8 +43,8 @@ public class Controller {
 
         }
         System.out.println(keyLength);
-        String[] key=getKey(keyLength,cipherText,textLength);
-        //System.out.println(decipher(key,cipherText,textLength,keyLength));
+        String key=getKey(keyLength,cipherText,textLength);
+        System.out.println(decipher(key,cipherText,textLength,keyLength));
 
     }
 
@@ -57,7 +57,7 @@ public class Controller {
             {
                 partCipher[i]="";
 
-                for(int j=0;j<textLength;j+=keyLength)
+                for(int j=i;j<textLength;j+=keyLength)
                 {
                     partCipher[i] += cipherText.charAt(j);
                 }
@@ -93,10 +93,11 @@ public class Controller {
 
 
     }
-    public  String[] getKey(int keyLength,String cipherText,int textLength)
+    public  String getKey(int keyLength,String cipherText,int textLength)
     {
         String[] key=new String[keyLength];
         String[] partCipher=new String[keyLength];
+        String bestKey="";
         resetFreq();
         for(int i=0;i<keyLength;i++)
         {
@@ -111,11 +112,11 @@ public class Controller {
             }
             char mostFrequentLetter=mostFreqLetter();
             key[i]+=decipherChar(mostFrequentLetter,"ETAOIN");
-            System.out.println(detectBestKeyChar(key[i],partCipher[i]));
+            bestKey+=detectBestKeyChar(key[i],partCipher[i]);
 
             resetFreq();
         }
-        return key;
+        return bestKey;
     }
 
     public String decipher(String key,String cipherText,int textLength,int keyLength)
