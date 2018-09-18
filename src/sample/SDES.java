@@ -26,6 +26,23 @@ public class SDES {
         return  cipherText;
 
     }
+    public String decipher(String rawKey,String cipherText)
+    {
+        String pTenkey=pTen(rawKey);
+        String shiftedPTenKey=shift(pTenkey,1);
+        String sKOne=pEight(shiftedPTenKey);
+        shiftedPTenKey=shift(shiftedPTenKey,2);
+        this.sK=pEight(shiftedPTenKey);
+        String permutedText=iP(cipherText);
+        int textLength=permutedText.length();
+        String plainText=fK(permutedText.substring(0,textLength/2),permutedText.substring(textLength/2,textLength));
+        plainText=sW(plainText);
+        this.sK=sKOne;
+        plainText=fK(plainText.substring(0,textLength/2),plainText.substring(textLength/2,textLength));
+        plainText=iPInverse(plainText);
+        return plainText;
+
+    }
 
     public  String iP(String text)
     {

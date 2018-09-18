@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import javax.xml.soap.Text;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -58,6 +57,15 @@ public class Controller {
         String rawKey=rawKeyTextField.getText();
         SDES sdes=new SDES();
         cipherSDESTextField.setText(sdes.cipher(rawKey,plainText));
+    }
+
+    public void sDESDecipher()
+    {
+        String cipherText=cipherSDESTextField.getText();
+        String rawKey=rawKeyTextField.getText();
+        SDES sdes=new SDES();
+        plainSDESTextField.setText(sdes.decipher(rawKey,cipherText));
+
     }
 }
 
