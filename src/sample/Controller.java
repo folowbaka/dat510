@@ -26,6 +26,21 @@ public class Controller {
 
     @FXML
     private TextField cipherSDESTextField;
+
+    @FXML
+    private TextField rawKeyOneThreeTextField;
+
+    @FXML
+    private TextField rawKeyTwoThreeTextField;
+
+    @FXML
+    private TextField plainThreeSDESTextField;
+
+    @FXML
+    private TextField cipherThreeSDESTextField;
+
+
+
     public void polyAPlainText() {
         String cipherText = polyACipherText.getText();
         cipherText = cipherText.replaceAll("[ \\n]", "");
@@ -65,6 +80,25 @@ public class Controller {
         String rawKey=rawKeyTextField.getText();
         SDES sdes=new SDES();
         plainSDESTextField.setText(sdes.decipher(rawKey,cipherText));
+
+    }
+    public void ThreeSDESCipher()
+    {
+        String plainText=plainThreeSDESTextField.getText();
+        String rawKeyOne=rawKeyOneThreeTextField.getText();
+        String rawKeyTwo=rawKeyTwoThreeTextField.getText();
+        ThreeSDES threeSDES=new ThreeSDES();
+        String cipherText=threeSDES.cipher(rawKeyOne,rawKeyTwo,plainText);
+        cipherThreeSDESTextField.setText(cipherText);
+    }
+    public void ThreeSDESDecipher()
+    {
+        String cipherText=cipherThreeSDESTextField.getText();
+        String rawKeyOne=rawKeyOneThreeTextField.getText();
+        String rawKeyTwo=rawKeyTwoThreeTextField.getText();
+        ThreeSDES threeSDES=new ThreeSDES();
+        String plainText=threeSDES.decipher(rawKeyOne,rawKeyTwo,cipherText);
+        plainThreeSDESTextField.setText(plainText);
 
     }
 }

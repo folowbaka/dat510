@@ -38,6 +38,24 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="3SDES">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="rawKeyOneThreeTextField" layoutX="50.0" layoutY="111.0" prefHeight="31.0" prefWidth="200.0" />
+                        <TextField fx:id="plainThreeSDESTextField" layoutX="336.0" layoutY="285.0" prefHeight="31.0" prefWidth="200.0" />
+                        <TextField fx:id="cipherThreeSDESTextField" layoutX="50.0" layoutY="285.0" prefHeight="31.0" prefWidth="200.0" />
+                        <Button layoutX="100.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#ThreeSDESCipher" prefHeight="31.0" prefWidth="100.0" text="Cipher" />
+                        <Button layoutX="386.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#ThreeSDESDecipher" prefHeight="31.0" prefWidth="100.0" text="decipher" />
+                        <Label layoutX="119.0" layoutY="60.0" prefHeight="39.0" prefWidth="61.0" text="Raw Key 1" />
+                        <Label layoutX="413.0" layoutY="254.0" text="Plaintext" />
+                        <Label layoutX="114.0" layoutY="253.0" prefHeight="20.0" prefWidth="71.0" text="CipherText" />
+                        <Label layoutX="405.0" layoutY="60.0" prefHeight="39.0" prefWidth="61.0" text="Raw Key 2" />
+                        <TextField fx:id="rawKeyTwoThreeTextField" layoutX="336.0" layoutY="111.0" prefHeight="31.0" prefWidth="200.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
