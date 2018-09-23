@@ -12,6 +12,7 @@ public class SDES {
     }
     public String cipher(String rawKey,String plainText)
     {
+        this.sK="";
         String pTenkey=pTen(rawKey);
         String shiftedPTenKey=shift(pTenkey,1);
          this.sK=pEight(shiftedPTenKey);
@@ -28,6 +29,7 @@ public class SDES {
     }
     public String decipher(String rawKey,String cipherText)
     {
+        this.sK="";
         String pTenkey=pTen(rawKey);
         String shiftedPTenKey=shift(pTenkey,1);
         String sKOne=pEight(shiftedPTenKey);
@@ -129,7 +131,7 @@ public class SDES {
         String fResult=xorResult+rText;
         int fResultLength=fResult.length();
         if(fResultLength<8)
-            fResult=fillZeroXor(fResultLength,fResult);
+            fResult=fillZeroXor(fResultLength,fResult,8);
 
         return fResult;
     }
@@ -140,7 +142,7 @@ public class SDES {
         int xorResultLength=xorResult.length();
         if(xorResultLength<8)
         {
-            xorResult = fillZeroXor(xorResultLength, xorResult);
+            xorResult = fillZeroXor(xorResultLength, xorResult,8);
             xorResultLength=8;
         }
 
@@ -189,10 +191,10 @@ public class SDES {
 
         return bits.substring(bitLength/2,bitLength)+bits.substring(0,bitLength/2);
     }
-    public String fillZeroXor(int xorResultLength,String xorResult)
+    public String fillZeroXor(int xorResultLength,String xorResult,int maxKeyLength)
     {
             String zeroAdded="";
-            int zeroToAdd=8-xorResultLength;
+            int zeroToAdd=maxKeyLength-xorResultLength;
             for(int i=0;i<zeroToAdd;i++)
                 zeroAdded+="0";
             xorResult=zeroAdded+xorResult;

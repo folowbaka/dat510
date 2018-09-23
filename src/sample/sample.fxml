@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -9,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="2000" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="2000" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <center>
       <TabPane prefHeight="400.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -52,6 +55,17 @@
                         <Label layoutX="114.0" layoutY="253.0" prefHeight="20.0" prefWidth="71.0" text="CipherText" />
                         <Label layoutX="405.0" layoutY="60.0" prefHeight="39.0" prefWidth="61.0" text="Raw Key 2" />
                         <TextField fx:id="rawKeyTwoThreeTextField" layoutX="336.0" layoutY="111.0" prefHeight="31.0" prefWidth="200.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="crackTextArea" layoutX="79.0" layoutY="74.0" prefHeight="200.0" prefWidth="462.0" />
+                        <Button layoutX="124.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#crackSDES" text="Crack " />
+                        <Button layoutX="423.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#crack3SDES" text="Crack 3" />
                      </children>
                   </AnchorPane>
               </content>

@@ -7,7 +7,7 @@ public class Vigenere {
 
     public final static double ENGLISH_IC = 0.0667;
     public final static double MAX_KEY_LENGTH = 10;
-    private static HashMap<Character,Integer> numLetter=new HashMap<Character, Integer>();
+    public static HashMap<Character,Integer> numLetter=new HashMap<Character, Integer>();
     private static HashMap<Character,Double> englishFreq=new HashMap<Character, Double>();
 
     public double coincidenceIndex(int keyLength,String cipherText,int textLength)
@@ -35,13 +35,21 @@ public class Vigenere {
     public double coincidenceCalcul(String cipherText,int texlength)
     {
         resetFreq();
+        cipherText=cipherText.toUpperCase();
 
-        for(int i=0;i<texlength;i++)
+        int i=0;
+        while(i<texlength && numLetter.containsKey(cipherText.charAt(i)))
         {
-            int freq=(int)numLetter.get(cipherText.charAt(i));
-            freq++;
-            numLetter.put(cipherText.charAt(i),freq);
+
+                int freq = (int) numLetter.get(cipherText.charAt(i));
+                freq++;
+                numLetter.put(cipherText.charAt(i), freq);
+            i++;
+
         }
+        if(i<texlength)
+            return 100;
+
         double coef=0;
         for (Map.Entry entry : numLetter.entrySet())
         {

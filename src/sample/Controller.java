@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -40,6 +41,8 @@ public class Controller {
     private TextField cipherThreeSDESTextField;
 
 
+    @FXML
+    private TextArea crackTextArea;
 
     public void polyAPlainText() {
         String cipherText = polyACipherText.getText();
@@ -89,6 +92,7 @@ public class Controller {
         String rawKeyTwo=rawKeyTwoThreeTextField.getText();
         ThreeSDES threeSDES=new ThreeSDES();
         String cipherText=threeSDES.cipher(rawKeyOne,rawKeyTwo,plainText);
+        System.out.println(cipherText);
         cipherThreeSDESTextField.setText(cipherText);
     }
     public void ThreeSDESDecipher()
@@ -98,7 +102,122 @@ public class Controller {
         String rawKeyTwo=rawKeyTwoThreeTextField.getText();
         ThreeSDES threeSDES=new ThreeSDES();
         String plainText=threeSDES.decipher(rawKeyOne,rawKeyTwo,cipherText);
+        System.out.println(plainText);
         plainThreeSDESTextField.setText(plainText);
+
+    }
+    public void crackSDES()
+    {
+        String cipherText=crackTextArea.getText();
+        cipherText=cipherText.replaceAll("\n","");
+        String rawKey="0000000000";
+        String binaryToAdd="0000000001";
+        SDES sdes=new SDES();
+        String plaintext="";
+        int textLength=cipherText.length();
+        int numberOfBlock=0;
+            numberOfBlock=textLength/8;
+        if(textLength%8!=0)
+            numberOfBlock++;
+        double minDistance=100;
+        Vigenere vg=new Vigenere();
+        Vigenere.fillAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        for(int i=0;i<1024;i++)
+        {
+            String cipherBlockText="";
+            String protoPlainText="";
+            for(int j=0;j<numberOfBlock;j++)
+            {
+
+                if(j==numberOfBlock-1 && textLength-(j*8)<8)
+                    cipherBlockText=cipherText.substring(j*8,j*8+(textLength-(j*8)-1));
+                else
+                    cipherBlockText=cipherText.substring(j*8,j*8+8);
+                protoPlainText+=(char)Integer.parseInt(sdes.decipher(rawKey,cipherBlockText),2);
+
+
+            }
+            double coeff=vg.coincidenceCalcul(protoPlainText,protoPlainText.length());
+            if((double)(Math.abs(Vigenere.ENGLISH_IC-coeff))<minDistance)
+            {
+                minDistance=(Math.abs(Vigenere.ENGLISH_IC-coeff));
+                plaintext=protoPlainText;
+            }
+            int newKey=Integer.parseInt(rawKey,2)+Integer.parseInt(binaryToAdd,2);
+            rawKey=Integer.toBinaryString(newKey);
+            int keyLength=rawKey.length();
+            rawKey=sdes.fillZeroXor(keyLength,rawKey,10);
+
+        }
+        System.out.println(plaintext);
+
+
+    }
+    public void crack3SDES()
+    {
+        String cipherText=crackTextArea.getText();
+        cipherText=cipherText.replaceAll("\n","");
+        String rawKeyOne="0000000000";
+        String binaryToAdd="0000000001";
+        ThreeSDES threeSDES=new ThreeSDES();
+        String plaintext="";
+        int textLength=cipherText.length();
+        int numberOfBlock=0;
+        numberOfBlock=textLength/8;
+        if(textLength%8!=0)
+            numberOfBlock++;
+        double minDistance=100;
+        Vigenere vg=new Vigenere();
+        Vigenere.fillAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        System.out.println(LocalTime.now());
+        for(int i=0;i<1024;i++)
+        {
+            String rawKeyTwo="0000000000";
+
+            for(int j=0;j<1024;j++)
+            {
+                boolean fuck=false;
+                String cipherBlockText="";
+                String protoPlainText="";
+                for(int k=0;k<numberOfBlock;k++)
+                {
+
+                    if(k==numberOfBlock-1 && textLength-(k*8)<8)
+                        cipherBlockText=cipherText.substring(k*8,k*8+(textLength-(k*8)-1));
+                    else
+                        cipherBlockText=cipherText.substring(k*8,k*8+8);
+                    protoPlainText+=(char)Integer.parseInt(threeSDES.decipher(rawKeyOne,rawKeyTwo,cipherBlockText),2);
+                    String protoUpper=(""+protoPlainText.charAt(k)).toUpperCase();
+                    if(!Vigenere.numLetter.containsKey(protoUpper.charAt(0)))
+                    {
+                        fuck=true;
+                        break;
+                    }
+
+                }
+                if(!fuck)
+                {
+
+                    double coeff = vg.coincidenceCalcul(protoPlainText, protoPlainText.length());
+                    if ((double) (Math.abs(Vigenere.ENGLISH_IC - coeff)) < minDistance) {
+                        minDistance = (Math.abs(Vigenere.ENGLISH_IC - coeff));
+                        plaintext = protoPlainText;
+                    }
+                }
+                int newKeyTwo=Integer.parseInt(rawKeyTwo,2)+Integer.parseInt(binaryToAdd,2);
+                rawKeyTwo=Integer.toBinaryString(newKeyTwo);
+                int keyTwoLength=rawKeyTwo.length();
+                rawKeyTwo=threeSDES.fillZeroXor(keyTwoLength,rawKeyTwo,10);
+            }
+            int newKeyOne=Integer.parseInt(rawKeyOne,2)+Integer.parseInt(binaryToAdd,2);
+            rawKeyOne=Integer.toBinaryString(newKeyOne);
+            int keyOneLength=rawKeyOne.length();
+            rawKeyOne=threeSDES.fillZeroXor(keyOneLength,rawKeyOne,10);
+
+
+        }
+        System.out.println(plaintext);
+        System.out.println(LocalTime.now());
 
     }
 }

@@ -14,10 +14,7 @@ public class ThreeSDES extends SDES {
     public String decipher(String rawKeyOne,String rawKeyTwo,String cipherText)
     {
 
-        String plainText=this.decipher(rawKeyOne,cipherText);
-        plainText=this.cipher(rawKeyTwo,plainText);
-        plainText=this.decipher(rawKeyOne,plainText);
-        return plainText;
+        return this.decipher(rawKeyOne,this.cipher(rawKeyTwo,this.decipher(rawKeyOne,cipherText)));
     }
 
 
