@@ -10,6 +10,13 @@ public class Vigenere {
     public static HashMap<Character,Integer> numLetter=new HashMap<Character, Integer>();
     private static HashMap<Character,Double> englishFreq=new HashMap<Character, Double>();
 
+    /**
+     * Friedman test
+     * @param keyLength
+     * @param cipherText
+     * @param textLength
+     * @return
+     */
     public double coincidenceIndex(int keyLength,String cipherText,int textLength)
     {
         String[] partCipher=new String[keyLength];
@@ -18,12 +25,13 @@ public class Vigenere {
         for(int i=0;i<keyLength;i++)
         {
             partCipher[i]="";
-
+            //Construct each subtext for the IC calcul
             for(int j=i;j<textLength;j+=keyLength)
             {
                 partCipher[i] += cipherText.charAt(j);
             }
             int partLength=partCipher[i].length();
+            //Calcul of the IC
             coeff+=coincidenceCalcul(partCipher[i], partLength);
 
         }
@@ -32,6 +40,13 @@ public class Vigenere {
 
 
     }
+
+    /**
+     * Calcul of the IC for a text
+     * @param cipherText
+     * @param texlength
+     * @return
+     */
     public double coincidenceCalcul(String cipherText,int texlength)
     {
         resetFreq();
@@ -63,6 +78,14 @@ public class Vigenere {
 
 
     }
+
+    /**
+     * Return the Vigenere key
+     * @param keyLength
+     * @param cipherText
+     * @param textLength
+     * @return
+     */
     public  String getKey(int keyLength,String cipherText,int textLength)
     {
         String[] key=new String[keyLength];
@@ -81,6 +104,7 @@ public class Vigenere {
                 partCipher[i]+=cipherText.charAt(j);
             }
             char mostFrequentLetter=mostFreqLetter();
+            //Calculate the best character key for each subtext
             key[i]+=decipherChar(mostFrequentLetter,"ETAOIN");
             bestKey+=detectBestKeyChar(key[i],partCipher[i]);
 

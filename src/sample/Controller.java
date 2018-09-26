@@ -17,9 +17,6 @@ public class Controller {
     private TextArea polyACipherText;
 
     @FXML
-    private Button polyABtn;
-
-    @FXML
     private TextField rawKeyTextField;
 
     @FXML
@@ -40,10 +37,18 @@ public class Controller {
     @FXML
     private TextField cipherThreeSDESTextField;
 
+    @FXML
+    private TextField crackRawKeyOneTF;
+
+    @FXML
+    private TextField crackRawKeyTwoTF;
 
     @FXML
     private TextArea crackTextArea;
 
+    /**
+     * Method to decipher Vigenere
+     */
     public void polyAPlainText() {
         String cipherText = polyACipherText.getText();
         cipherText = cipherText.replaceAll("[ \\n]", "");
@@ -53,9 +58,11 @@ public class Controller {
         int keyLength = 0;
         double icMinDistance = 20;
         Vigenere v = new Vigenere();
-        for (int i = 1; i <= Vigenere.MAX_KEY_LENGTH; i++) {
+        // Search the key length
+        for (int i = 1; i <= Vigenere.MAX_KEY_LENGTH; i++)
+        {
             double icCoeff = v.coincidenceIndex(i, cipherText, textLength);
-            System.out.println(icCoeff);
+            System.out.println("key length : "+i+" IC : "+icCoeff);
             double distance = Math.abs(Vigenere.ENGLISH_IC - icCoeff);
             if (distance < icMinDistance) {
                 keyLength = i;
@@ -64,7 +71,10 @@ public class Controller {
 
         }
         System.out.println(keyLength);
+        //Obtain the key with its key length
         String key = v.getKey(keyLength, cipherText, textLength);
+        System.out.println("Key : "+key);
+        //Decipher the text with the key found
         polyACipherText.setText(v.decipher(key, cipherText, textLength, keyLength));
 
     }
@@ -122,6 +132,7 @@ public class Controller {
         double minDistance=100;
         Vigenere vg=new Vigenere();
         Vigenere.fillAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        String bestKey="";
         for(int i=0;i<1024;i++)
         {
             String cipherBlockText="";
@@ -142,6 +153,7 @@ public class Controller {
             {
                 minDistance=(Math.abs(Vigenere.ENGLISH_IC-coeff));
                 plaintext=protoPlainText;
+                bestKey=rawKey;
             }
             int newKey=Integer.parseInt(rawKey,2)+Integer.parseInt(binaryToAdd,2);
             rawKey=Integer.toBinaryString(newKey);
@@ -149,7 +161,10 @@ public class Controller {
             rawKey=sdes.fillZeroXor(keyLength,rawKey,10);
 
         }
+        System.out.println("Raw key :"+bestKey);
+        crackRawKeyOneTF.setText(bestKey);
         System.out.println(plaintext);
+        crackTextArea.setText(plaintext);
 
 
     }
@@ -159,6 +174,8 @@ public class Controller {
         cipherText=cipherText.replaceAll("\n","");
         String rawKeyOne="0000000000";
         String binaryToAdd="0000000001";
+        String bestKeyOne="";
+        String bestKeyTwo="";
         ThreeSDES threeSDES=new ThreeSDES();
         String plaintext="";
         int textLength=cipherText.length();
@@ -169,7 +186,6 @@ public class Controller {
         double minDistance=100;
         Vigenere vg=new Vigenere();
         Vigenere.fillAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        System.out.println(LocalTime.now());
         for(int i=0;i<1024;i++)
         {
             String rawKeyTwo="0000000000";
@@ -202,6 +218,8 @@ public class Controller {
                     if ((double) (Math.abs(Vigenere.ENGLISH_IC - coeff)) < minDistance) {
                         minDistance = (Math.abs(Vigenere.ENGLISH_IC - coeff));
                         plaintext = protoPlainText;
+                        bestKeyOne=rawKeyOne;
+                        bestKeyTwo=rawKeyTwo;
                     }
                 }
                 int newKeyTwo=Integer.parseInt(rawKeyTwo,2)+Integer.parseInt(binaryToAdd,2);
@@ -216,9 +234,12 @@ public class Controller {
 
 
         }
+        System.out.println("Raw key 1 : "+bestKeyOne);
+        System.out.println("Raw key 2 : "+bestKeyTwo);
+        crackRawKeyOneTF.setText(bestKeyOne);
+        crackRawKeyTwoTF.setText(bestKeyTwo);
         System.out.println(plaintext);
-        System.out.println(LocalTime.now());
-
+        crackTextArea.setText(plaintext);
     }
 }
 

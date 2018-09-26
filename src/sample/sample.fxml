@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -12,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="2000" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="2000" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <center>
       <TabPane prefHeight="400.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -59,13 +56,17 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab text="SDES CRACK">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="crackTextArea" layoutX="79.0" layoutY="74.0" prefHeight="200.0" prefWidth="462.0" />
-                        <Button layoutX="124.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#crackSDES" text="Crack " />
-                        <Button layoutX="423.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#crack3SDES" text="Crack 3" />
+                        <TextArea fx:id="crackTextArea" layoutX="68.0" layoutY="111.0" prefHeight="200.0" prefWidth="462.0" />
+                        <Button layoutX="129.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#crackSDES" text="Crack " />
+                        <Button layoutX="421.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#crack3SDES" text="Crack 3" />
+                        <TextField fx:id="crackRawKeyOneTF" layoutX="68.0" layoutY="67.0" />
+                        <TextField fx:id="crackRawKeyTwoTF" layoutX="381.0" layoutY="67.0" />
+                        <Label layoutX="114.0" layoutY="38.0" prefHeight="18.0" prefWidth="55.0" text="Raw key 1" />
+                        <Label layoutX="426.0" layoutY="38.0" prefHeight="18.0" prefWidth="57.0" text="Raw key 2" />
                      </children>
                   </AnchorPane>
               </content>
