@@ -79,6 +79,9 @@ public class Controller {
 
     }
 
+    /**
+     * Method to
+     */
     public void sDESCipher()
     {
         String plainText=plainSDESTextField.getText();
@@ -158,7 +161,7 @@ public class Controller {
             int newKey=Integer.parseInt(rawKey,2)+Integer.parseInt(binaryToAdd,2);
             rawKey=Integer.toBinaryString(newKey);
             int keyLength=rawKey.length();
-            rawKey=sdes.fillZeroXor(keyLength,rawKey,10);
+            rawKey=sdes.fillZeroBinary(keyLength,rawKey,10);
 
         }
         System.out.println("Raw key :"+bestKey);
@@ -192,7 +195,7 @@ public class Controller {
 
             for(int j=0;j<1024;j++)
             {
-                boolean fuck=false;
+                boolean specialChaacter=false;
                 String cipherBlockText="";
                 String protoPlainText="";
                 for(int k=0;k<numberOfBlock;k++)
@@ -206,12 +209,12 @@ public class Controller {
                     String protoUpper=(""+protoPlainText.charAt(k)).toUpperCase();
                     if(!Vigenere.numLetter.containsKey(protoUpper.charAt(0)))
                     {
-                        fuck=true;
+                        specialChaacter=true;
                         break;
                     }
 
                 }
-                if(!fuck)
+                if(!specialChaacter)
                 {
 
                     double coeff = vg.coincidenceCalcul(protoPlainText, protoPlainText.length());
@@ -225,12 +228,12 @@ public class Controller {
                 int newKeyTwo=Integer.parseInt(rawKeyTwo,2)+Integer.parseInt(binaryToAdd,2);
                 rawKeyTwo=Integer.toBinaryString(newKeyTwo);
                 int keyTwoLength=rawKeyTwo.length();
-                rawKeyTwo=threeSDES.fillZeroXor(keyTwoLength,rawKeyTwo,10);
+                rawKeyTwo=threeSDES.fillZeroBinary(keyTwoLength,rawKeyTwo,10);
             }
             int newKeyOne=Integer.parseInt(rawKeyOne,2)+Integer.parseInt(binaryToAdd,2);
             rawKeyOne=Integer.toBinaryString(newKeyOne);
             int keyOneLength=rawKeyOne.length();
-            rawKeyOne=threeSDES.fillZeroXor(keyOneLength,rawKeyOne,10);
+            rawKeyOne=threeSDES.fillZeroBinary(keyOneLength,rawKeyOne,10);
 
 
         }

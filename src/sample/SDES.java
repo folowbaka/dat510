@@ -131,7 +131,7 @@ public class SDES {
         String fResult=xorResult+rText;
         int fResultLength=fResult.length();
         if(fResultLength<8)
-            fResult=fillZeroXor(fResultLength,fResult,8);
+            fResult=fillZeroBinary(fResultLength,fResult,8);
 
         return fResult;
     }
@@ -142,7 +142,7 @@ public class SDES {
         int xorResultLength=xorResult.length();
         if(xorResultLength<8)
         {
-            xorResult = fillZeroXor(xorResultLength, xorResult,8);
+            xorResult = fillZeroBinary(xorResultLength, xorResult,8);
             xorResultLength=8;
         }
 
@@ -191,7 +191,7 @@ public class SDES {
 
         return bits.substring(bitLength/2,bitLength)+bits.substring(0,bitLength/2);
     }
-    public String fillZeroXor(int xorResultLength,String xorResult,int maxKeyLength)
+    public String fillZeroBinary(int xorResultLength,String xorResult,int maxKeyLength)
     {
             String zeroAdded="";
             int zeroToAdd=maxKeyLength-xorResultLength;
