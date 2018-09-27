@@ -18,4 +18,7 @@ Need Java 9 or higher to be run because of JavaFx.
       └── Vigenere.java    Java class where the Vigenere logic is      
  ```
 # Screens
-[](screens/vigenere.jpg)
+![vigenere](screens/vigenere.jpg)
+![vigenere](screens/sdes.jpg)
+![vigenere](screens/3sdes.jpg)
+![vigenere](screens/crack.jpg)
