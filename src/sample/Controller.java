@@ -47,7 +47,7 @@ public class Controller {
     private TextArea crackTextArea;
 
     /**
-     * Method to decipher Vigenere
+     * Method to decipher a Vigenere cipherText
      */
     public void polyAPlainText() {
         String cipherText = polyACipherText.getText();
@@ -80,7 +80,7 @@ public class Controller {
     }
 
     /**
-     * Method to
+     * Method to cipher wirh SDES a plaintext
      */
     public void sDESCipher()
     {
@@ -90,6 +90,9 @@ public class Controller {
         cipherSDESTextField.setText(sdes.cipher(rawKey,plainText));
     }
 
+    /**
+     * Method to decipher a SDES cipherText
+     */
     public void sDESDecipher()
     {
         String cipherText=cipherSDESTextField.getText();
@@ -98,6 +101,9 @@ public class Controller {
         plainSDESTextField.setText(sdes.decipher(rawKey,cipherText));
 
     }
+    /**
+     * Method to cipher wirh TripleSDES a plaintext
+     */
     public void ThreeSDESCipher()
     {
         String plainText=plainThreeSDESTextField.getText();
@@ -108,6 +114,9 @@ public class Controller {
         System.out.println(cipherText);
         cipherThreeSDESTextField.setText(cipherText);
     }
+    /**
+     * Method to decipher a TripleSDES cipherText
+     */
     public void ThreeSDESDecipher()
     {
         String cipherText=cipherThreeSDESTextField.getText();
@@ -119,6 +128,9 @@ public class Controller {
         plainThreeSDESTextField.setText(plainText);
 
     }
+    /**
+     * Method to decipher a SDES cipherText without the key
+     */
     public void crackSDES()
     {
         String cipherText=crackTextArea.getText();
@@ -171,6 +183,9 @@ public class Controller {
 
 
     }
+    /**
+     * Method to decipher a TripleSDES cipherText without the keys
+     */
     public void crack3SDES()
     {
         String cipherText=crackTextArea.getText();
