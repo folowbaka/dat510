@@ -9,13 +9,15 @@ Need Java 9 or higher to be run because of JavaFx.
 # Structure
 ```
 ├── src
-   └── sample
-      ├── Controller.java  Contains all the methods triggered by the interface      
-      ├── Main.java        Java class to run      
-      ├── sample.fxml      fxml file which define the interface      
-      ├── SDES.java        Java class where the SDES logic is      
-      ├── ThreeSDES.java   Java class where the ThreeSDES logic is      
-      └── Vigenere.java    Java class where the Vigenere logic is      
+|   └── sample
+|      ├── Controller.java  Contains all the methods triggered by the interface      
+|      ├── Main.java        Java class to run      
+|      ├── sample.fxml      fxml file which define the interface      
+|      ├── SDES.java        Java class where the SDES logic is      
+|      ├── ThreeSDES.java   Java class where the ThreeSDES logic is      
+|      └── Vigenere.java    Java class where the Vigenere logic is    
+|
+└──README.md
  ```
 # Screens
 ![vigenere](screens/vigenere.jpg)
